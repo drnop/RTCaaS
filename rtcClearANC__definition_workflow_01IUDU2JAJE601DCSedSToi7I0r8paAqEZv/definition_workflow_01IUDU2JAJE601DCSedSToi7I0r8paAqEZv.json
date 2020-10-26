@@ -1,0 +1,364 @@
+{
+  "workflow": {
+    "unique_name": "definition_workflow_01IUDU2JAJE601DCSedSToi7I0r8paAqEZv",
+    "name": "RTC Clear ANC",
+    "title": "RTC Clear ANC",
+    "type": "generic.workflow",
+    "base_type": "workflow",
+    "variables": [
+      {
+        "schema_id": "datatype.string",
+        "properties": {
+          "value": "",
+          "scope": "input",
+          "name": "type",
+          "type": "datatype.string",
+          "is_required": false
+        },
+        "unique_name": "variable_workflow_01IUDU2IVVX813g5FXZ0pWvNxbuG8rI0C5c",
+        "object_type": "variable_workflow"
+      },
+      {
+        "schema_id": "datatype.string",
+        "properties": {
+          "value": "",
+          "scope": "input",
+          "name": "value",
+          "type": "datatype.string",
+          "is_required": false
+        },
+        "unique_name": "variable_workflow_01IUDU2IVW138589wCpIKEaA6ubyQiX7kc5",
+        "object_type": "variable_workflow"
+      },
+      {
+        "schema_id": "datatype.string",
+        "properties": {
+          "value": "",
+          "scope": "local",
+          "name": "post",
+          "type": "datatype.string",
+          "is_required": false
+        },
+        "unique_name": "variable_workflow_01IUDU2IVW2OT507RmebDdGVdrcwwamU1OE",
+        "object_type": "variable_workflow"
+      },
+      {
+        "schema_id": "datatype.boolean",
+        "properties": {
+          "value": false,
+          "scope": "output",
+          "name": "success",
+          "type": "datatype.boolean",
+          "is_required": false
+        },
+        "unique_name": "variable_workflow_01IUDU2IVW4244lbN5q4FZ6cl9dYj7F2B0X",
+        "object_type": "variable_workflow"
+      }
+    ],
+    "properties": {
+      "atomic": {
+        "atomic_group": "Atomic",
+        "is_atomic": true
+      },
+      "delete_workflow_instance": false,
+      "display_name": "RTC Clear ANC",
+      "runtime_user": {
+        "override_target_runtime_user": false,
+        "specify_on_workflow_start": false,
+        "target_default": true
+      },
+      "target": {
+        "no_target": true
+      }
+    },
+    "object_type": "definition_workflow",
+    "actions": [
+      {
+        "unique_name": "definition_activity_01IUDU3HXTHFU3nT0raoAwy6cN7ToJhk4oh",
+        "name": "Condition Block",
+        "title": "Check input type",
+        "type": "logic.if_else",
+        "base_type": "activity",
+        "properties": {
+          "continue_on_failure": false,
+          "display_name": "Check input type",
+          "skip_execution": false
+        },
+        "object_type": "definition_activity",
+        "blocks": [
+          {
+            "unique_name": "definition_activity_01IUDU3QK0KXE4heuzjO8LeK23hgMHy3W6t",
+            "name": "Condition Branch",
+            "title": "ip",
+            "type": "logic.condition_block",
+            "base_type": "activity",
+            "properties": {
+              "condition": {
+                "left_operand": "$workflow.definition_workflow_01IUDU2JAJE601DCSedSToi7I0r8paAqEZv.input.variable_workflow_01IUDU2IVVX813g5FXZ0pWvNxbuG8rI0C5c$",
+                "operator": "eq",
+                "right_operand": "ip"
+              },
+              "continue_on_failure": false,
+              "display_name": "ip",
+              "skip_execution": false
+            },
+            "object_type": "definition_activity",
+            "actions": [
+              {
+                "unique_name": "definition_activity_01IUDU3X2E16P1hgg1m2JSDyhtUXqwoPNzH",
+                "name": "Set Variables",
+                "title": "Prepare post ip",
+                "type": "core.set_multiple_variables",
+                "base_type": "activity",
+                "properties": {
+                  "continue_on_failure": false,
+                  "display_name": "Prepare post ip",
+                  "skip_execution": false,
+                  "variables_to_update": [
+                    {
+                      "variable_to_update": "$workflow.definition_workflow_01IUDU2JAJE601DCSedSToi7I0r8paAqEZv.local.variable_workflow_01IUDU2IVW2OT507RmebDdGVdrcwwamU1OE$",
+                      "variable_value_new": "{\"ip\":\"$workflow.definition_workflow_01IUDU2JAJE601DCSedSToi7I0r8paAqEZv.input.variable_workflow_01IUDU2IVW138589wCpIKEaA6ubyQiX7kc5$\"}"
+                    }
+                  ]
+                },
+                "object_type": "definition_activity"
+              }
+            ]
+          },
+          {
+            "unique_name": "definition_activity_01IUDU47QL6LZ1Fvy6jIHcbIBTTZyei31Yo",
+            "name": "Condition Branch",
+            "title": "mac",
+            "type": "logic.condition_block",
+            "base_type": "activity",
+            "properties": {
+              "condition": {
+                "left_operand": "$workflow.definition_workflow_01IUDU2JAJE601DCSedSToi7I0r8paAqEZv.input.variable_workflow_01IUDU2IVVX813g5FXZ0pWvNxbuG8rI0C5c$",
+                "operator": "eq",
+                "right_operand": "mac"
+              },
+              "continue_on_failure": false,
+              "display_name": "mac",
+              "skip_execution": false
+            },
+            "object_type": "definition_activity",
+            "actions": [
+              {
+                "unique_name": "definition_activity_01IUDU4F1U49M34ZQprKaBkrBGaAoCp3C0x",
+                "name": "Set Variables",
+                "title": "Prepare post mac",
+                "type": "core.set_multiple_variables",
+                "base_type": "activity",
+                "properties": {
+                  "continue_on_failure": false,
+                  "display_name": "Prepare post mac",
+                  "skip_execution": false,
+                  "variables_to_update": [
+                    {
+                      "variable_to_update": "$workflow.definition_workflow_01IUDU2JAJE601DCSedSToi7I0r8paAqEZv.local.variable_workflow_01IUDU2IVW2OT507RmebDdGVdrcwwamU1OE$",
+                      "variable_value_new": "{\"mac\":\"$workflow.definition_workflow_01IUDU2JAJE601DCSedSToi7I0r8paAqEZv.input.variable_workflow_01IUDU2IVW138589wCpIKEaA6ubyQiX7kc5$\"}"
+                    }
+                  ]
+                },
+                "object_type": "definition_activity"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "unique_name": "definition_activity_01IUDU4RUWB090ekmrC9YnYYmaRVn2AatrK",
+        "name": "HTTP Request",
+        "title": "RTC Apply ANC",
+        "type": "web-service.http_request",
+        "base_type": "activity",
+        "properties": {
+          "action_timeout": 180,
+          "allow_auto_redirect": true,
+          "body": "$workflow.definition_workflow_01IUDU2JAJE601DCSedSToi7I0r8paAqEZv.local.variable_workflow_01IUDU2IVW2OT507RmebDdGVdrcwwamU1OE$",
+          "continue_on_error_status_code": false,
+          "continue_on_failure": false,
+          "custom_headers": [
+            {
+              "name": "RTCauthz",
+              "value": "$global.variable_01J9S3SKXQ32V54pNFciSSgKZIorwkrGPD5.global.variable_01J9S3SKXQ32V54pNFciSSgKZIorwkrGPD5$"
+            }
+          ],
+          "display_name": "RTC Apply ANC",
+          "method": "POST",
+          "relative_url": "/rtcAPIancClear.py",
+          "runtime_user": {
+            "override_target_runtime_user": false,
+            "target_default": true
+          },
+          "skip_execution": false,
+          "target": {
+            "override_workflow_target": true,
+            "target_id": "definition_target_01IGZC1E40QID51TJJOLbYyph2fAS6Jlji8"
+          }
+        },
+        "object_type": "definition_activity"
+      },
+      {
+        "unique_name": "definition_activity_01IUDU5658ILW0pFkUGy8yawfC5eL7jf6Dw",
+        "name": "JSONPath Query",
+        "title": "JSONPath Query",
+        "type": "corejava.jsonpathquery",
+        "base_type": "activity",
+        "properties": {
+          "action_timeout": 180,
+          "continue_on_failure": false,
+          "display_name": "JSONPath Query",
+          "input_json": "$activity.definition_activity_01IUDU4RUWB090ekmrC9YnYYmaRVn2AatrK.output.response_body$",
+          "jsonpath_queries": [
+            {
+              "jsonpath_query": "$.rtcResult",
+              "jsonpath_query_name": "rtcResult",
+              "jsonpath_query_type": "string"
+            }
+          ],
+          "skip_execution": false
+        },
+        "object_type": "definition_activity"
+      },
+      {
+        "unique_name": "definition_activity_01IUDU5JPG5SX5FdkMVyyJxGwMfcR5fS2Af",
+        "name": "Condition Block",
+        "title": "Success?",
+        "type": "logic.if_else",
+        "base_type": "activity",
+        "properties": {
+          "continue_on_failure": false,
+          "display_name": "Success?",
+          "skip_execution": false
+        },
+        "object_type": "definition_activity",
+        "blocks": [
+          {
+            "unique_name": "definition_activity_01IUDU5UD0PU16Nhg9yaawvaqnh58gdHVGc",
+            "name": "Condition Branch",
+            "title": "Successful",
+            "type": "logic.condition_block",
+            "base_type": "activity",
+            "properties": {
+              "condition": {
+                "left_operand": "$activity.definition_activity_01IUDU5658ILW0pFkUGy8yawfC5eL7jf6Dw.output.jsonpath_queries.rtcResult$",
+                "operator": "eq",
+                "right_operand": "OK"
+              },
+              "continue_on_failure": false,
+              "display_name": "Successful",
+              "skip_execution": false
+            },
+            "object_type": "definition_activity",
+            "actions": [
+              {
+                "unique_name": "definition_activity_01IUDU5ZKZ7ZZ5QeYUJxTGZfawcsonySTvr",
+                "name": "Set Variables",
+                "title": "Set Success",
+                "type": "core.set_multiple_variables",
+                "base_type": "activity",
+                "properties": {
+                  "continue_on_failure": false,
+                  "display_name": "Set Success",
+                  "skip_execution": false,
+                  "variables_to_update": [
+                    {
+                      "variable_to_update": "$workflow.definition_workflow_01IUDU2JAJE601DCSedSToi7I0r8paAqEZv.output.variable_workflow_01IUDU2IVW4244lbN5q4FZ6cl9dYj7F2B0X$",
+                      "variable_value_new": true
+                    }
+                  ]
+                },
+                "object_type": "definition_activity"
+              }
+            ]
+          },
+          {
+            "unique_name": "definition_activity_01IUDU6CCP1WG44y5gLDLgyBIWNN6gmRj6C",
+            "name": "Condition Branch",
+            "title": "Condition Branch",
+            "type": "logic.condition_block",
+            "base_type": "activity",
+            "properties": {
+              "condition": {
+                "left_operand": "$activity.definition_activity_01IUDU5658ILW0pFkUGy8yawfC5eL7jf6Dw.output.jsonpath_queries.rtcResult$",
+                "operator": "ne",
+                "right_operand": "OK"
+              },
+              "continue_on_failure": false,
+              "display_name": "Condition Branch",
+              "skip_execution": false
+            },
+            "object_type": "definition_activity"
+          }
+        ]
+      }
+    ],
+    "categories": [
+      "category_01EI33LMFFL7N5eTQLsOOJIrxdlSOHb7r3r",
+      "category_01FM7CGPZZCMY0KcvgiGjVH5UaB4y4aDJ7m",
+      "category_01I4ZSPMNI5KO0KKuu0fyfmzltRmOM9OE8w"
+    ]
+  },
+  "categories": {
+    "category_01EI33LMFFL7N5eTQLsOOJIrxdlSOHb7r3r": {
+      "unique_name": "category_01EI33LMFFL7N5eTQLsOOJIrxdlSOHb7r3r",
+      "name": "SecureX",
+      "title": "SecureX",
+      "type": "basic.category",
+      "base_type": "category",
+      "category_type": "custom",
+      "object_type": "category"
+    },
+    "category_01FM7CGPZZCMY0KcvgiGjVH5UaB4y4aDJ7m": {
+      "unique_name": "category_01FM7CGPZZCMY0KcvgiGjVH5UaB4y4aDJ7m",
+      "name": "response",
+      "title": "response",
+      "type": "basic.category",
+      "base_type": "category",
+      "category_type": "custom",
+      "object_type": "category"
+    },
+    "category_01I4ZSPMNI5KO0KKuu0fyfmzltRmOM9OE8w": {
+      "unique_name": "category_01I4ZSPMNI5KO0KKuu0fyfmzltRmOM9OE8w",
+      "name": "RTC-atomics",
+      "title": "RTC-atomics",
+      "type": "basic.category",
+      "base_type": "category",
+      "category_type": "custom",
+      "object_type": "category"
+    }
+  },
+  "targets": {
+    "definition_target_01IGZC1E40QID51TJJOLbYyph2fAS6Jlji8": {
+      "unique_name": "definition_target_01IGZC1E40QID51TJJOLbYyph2fAS6Jlji8",
+      "name": "rtcISE",
+      "title": "rtcISE",
+      "type": "web-service.endpoint",
+      "base_type": "target",
+      "object_type": "definition_target",
+      "properties": {
+        "disable_certificate_validation": true,
+        "display_name": "rtcISE",
+        "host": "rtcaws.labrats.se",
+        "ignore_proxy": false,
+        "no_runtime_user": true,
+        "path": "/cgi-bin",
+        "protocol": "https"
+      }
+    }
+  },
+  "variables": {
+    "variable_01J9S3SKXQ32V54pNFciSSgKZIorwkrGPD5": {
+      "unique_name": "variable_01J9S3SKXQ32V54pNFciSSgKZIorwkrGPD5",
+      "properties": {
+        "value": "*****",
+        "scope": "global",
+        "name": "RTC ISE Authz Secure String",
+        "type": "datatype.secure_string",
+        "is_required": false
+      },
+      "object_type": "variable"
+    }
+  }
+}
