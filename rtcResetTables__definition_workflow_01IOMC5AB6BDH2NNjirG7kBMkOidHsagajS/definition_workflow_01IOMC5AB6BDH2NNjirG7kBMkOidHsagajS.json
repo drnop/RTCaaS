@@ -1,0 +1,523 @@
+{
+  "workflow": {
+    "unique_name": "definition_workflow_01IOMC5AB6BDH2NNjirG7kBMkOidHsagajS",
+    "name": "RTC Reset Tables and Casebooks",
+    "title": "RTC Reset Tables and Casebooks",
+    "type": "generic.workflow",
+    "base_type": "workflow",
+    "variables": [
+      {
+        "schema_id": "datatype.string",
+        "properties": {
+          "value": "",
+          "scope": "local",
+          "name": "escaped_casebook_id",
+          "type": "datatype.string",
+          "is_required": false
+        },
+        "unique_name": "variable_workflow_01ITHHJHW5GFP4RFZO0DWvXw6aJzr7MbKZe",
+        "object_type": "variable_workflow"
+      },
+      {
+        "schema_id": "datatype.string",
+        "properties": {
+          "value": "0",
+          "scope": "local",
+          "name": "loop_index",
+          "type": "datatype.string",
+          "is_required": false
+        },
+        "unique_name": "variable_workflow_01IRWDDRRSUZM52kZDUkV8KjIkjosqOAE35",
+        "object_type": "variable_workflow"
+      }
+    ],
+    "properties": {
+      "atomic": {
+        "is_atomic": false
+      },
+      "delete_workflow_instance": false,
+      "display_name": "RTC Reset Tables and Casebooks",
+      "runtime_user": {
+        "override_target_runtime_user": false,
+        "specify_on_workflow_start": false,
+        "target_default": true
+      },
+      "target": {
+        "execute_on_target_group": false,
+        "execute_on_workflow_target": false,
+        "no_target": true,
+        "specify_on_workflow_start": false
+      }
+    },
+    "object_type": "definition_workflow",
+    "actions": [
+      {
+        "unique_name": "definition_activity_01IRWO21UWW6L0h3mVoNPWaNIrS1HrCJ2f2",
+        "name": "RTC Get CTR Access Token",
+        "title": "RTC Get CTR Access Token",
+        "type": "workflow.atomic_workflow",
+        "base_type": "subworkflow",
+        "properties": {
+          "display_name": "RTC Get CTR Access Token",
+          "runtime_user": {
+            "target_default": true
+          },
+          "target": {
+            "no_target": true
+          },
+          "workflow_id": "definition_workflow_01IOHWHM1ICAW3AYgBgaNeGiuEhsewIGwz2"
+        },
+        "object_type": "definition_activity"
+      },
+      {
+        "unique_name": "definition_activity_01IOMCHS0IBHM6swS8Oxdklkp30UI7JPvzd",
+        "name": "Delete from Table",
+        "title": "Delete from Event Table",
+        "type": "core.deleterowfromtable",
+        "base_type": "activity",
+        "properties": {
+          "action_timeout": 180,
+          "continue_on_failure": false,
+          "display_name": "Delete from Event Table",
+          "input_table": "$global.variable_01IQ7XFDHCS3F0h3yo63lsldOUJaj3Yk7Sg.global.variable_01IQ7XFDHCS3F0h3yo63lsldOUJaj3Yk7Sg$",
+          "rows": {
+            "rows_matching_criteria": true,
+            "where_clause": "penalty \u003e0\n"
+          },
+          "skip_execution": false
+        },
+        "object_type": "definition_activity"
+      },
+      {
+        "unique_name": "definition_activity_01IRWBXZH1I6V1y09HE9hKoISQdD7A8a2LY",
+        "name": "Select from Table",
+        "title": "Select from Penalty Table",
+        "type": "core.selectfromtable",
+        "base_type": "activity",
+        "properties": {
+          "action_timeout": 180,
+          "columns": [
+            {
+              "column_name": "casebook_id",
+              "column_type": "string"
+            }
+          ],
+          "continue_on_failure": false,
+          "display_name": "Select from Penalty Table",
+          "input_table": "$global.variable_01IR28VFKY35735IGIN4eP88f4Cth0IHBZ1.global.variable_01IR28VFKY35735IGIN4eP88f4Cth0IHBZ1$",
+          "number_of_rows": {
+            "all_rows": true,
+            "at_most": false
+          },
+          "persist_output": false,
+          "skip_execution": false,
+          "sorting": {
+            "no_sort": true,
+            "sort_by": false
+          },
+          "where_clause": "penalty_points \u003e 0"
+        },
+        "object_type": "definition_activity"
+      },
+      {
+        "unique_name": "definition_activity_01IRWEFFVX0GY4XTfiA3TxsSIVyEjPrCoba",
+        "name": "For Each",
+        "title": "For Each Entry in penalty table",
+        "type": "logic.for_each",
+        "base_type": "activity",
+        "properties": {
+          "continue_on_failure": false,
+          "display_name": "For Each Entry in penalty table",
+          "skip_execution": false,
+          "source_array": "$activity.definition_activity_01IRWBXZH1I6V1y09HE9hKoISQdD7A8a2LY.output.output_table$"
+        },
+        "object_type": "definition_activity",
+        "actions": [
+          {
+            "unique_name": "definition_activity_01ITJHZI1P3D45mPUhRVXxrG4LATaR57YUK",
+            "name": "Condition Block",
+            "title": "Has a casebook_id?",
+            "type": "logic.if_else",
+            "base_type": "activity",
+            "properties": {
+              "continue_on_failure": false,
+              "display_name": "Has a casebook_id?",
+              "skip_execution": false
+            },
+            "object_type": "definition_activity",
+            "blocks": [
+              {
+                "unique_name": "definition_activity_01ITJHZP06O4Z5cuuIIH7WHepguDH7Cu9JQ",
+                "name": "Condition Branch",
+                "title": "Condition Branch",
+                "type": "logic.condition_block",
+                "base_type": "activity",
+                "properties": {
+                  "condition": {
+                    "left_operand": "$activity.definition_activity_01IRWEFFVX0GY4XTfiA3TxsSIVyEjPrCoba.input.source_array[@].casebook_id$",
+                    "operator": "ne",
+                    "right_operand": ""
+                  },
+                  "continue_on_failure": false,
+                  "display_name": "Condition Branch",
+                  "skip_execution": false
+                },
+                "object_type": "definition_activity",
+                "actions": [
+                  {
+                    "unique_name": "definition_activity_01ITJYEZICNEB2bXz0NyQBIhCvfEFbslDIb",
+                    "name": "RTC URL Escape",
+                    "title": "RTC URL Escape",
+                    "type": "workflow.atomic_workflow",
+                    "base_type": "subworkflow",
+                    "properties": {
+                      "continue_on_failure": false,
+                      "display_name": "RTC URL Escape",
+                      "input": {
+                        "variable_workflow_01ITJL550L49P6LInEfkbNukM6EmJzlMwA4": "$activity.definition_activity_01IRWEFFVX0GY4XTfiA3TxsSIVyEjPrCoba.input.source_array[@].casebook_id$"
+                      },
+                      "runtime_user": {
+                        "target_default": true
+                      },
+                      "skip_execution": false,
+                      "target": {
+                        "no_target": true
+                      },
+                      "workflow_id": "definition_workflow_01ITJKGL2ER9M3q4rd7wMGkT0wFosfeXi6o"
+                    },
+                    "object_type": "definition_activity"
+                  },
+                  {
+                    "unique_name": "definition_activity_01ITJYZ3MY8FK18ivKKPHpDGIhBCeWd7pCE",
+                    "name": "HTTP Request",
+                    "title": "Delete Casebook",
+                    "type": "web-service.http_request",
+                    "base_type": "activity",
+                    "properties": {
+                      "accept": "application/json",
+                      "action_timeout": 180,
+                      "allow_auto_redirect": true,
+                      "continue_on_error_status_code": false,
+                      "continue_on_failure": false,
+                      "custom_headers": [
+                        {
+                          "name": "Authorization",
+                          "value": "Bearer $activity.definition_activity_01IRWO21UWW6L0h3mVoNPWaNIrS1HrCJ2f2.output.variable_workflow_01IPIHSP8DN4V2JS6MDYJePSpuB4fugAct9$"
+                        }
+                      ],
+                      "display_name": "Delete Casebook",
+                      "method": "DELETE",
+                      "relative_url": "/ctia/casebook/$activity.definition_activity_01ITJYEZICNEB2bXz0NyQBIhCvfEFbslDIb.output.variable_workflow_01ITJLADELI7O5x5tfGuAUxGfcLgWAW9PEA$",
+                      "runtime_user": {
+                        "override_target_runtime_user": false,
+                        "target_default": true
+                      },
+                      "skip_execution": false,
+                      "target": {
+                        "override_workflow_target": true,
+                        "target_id": "definition_target_01IP46AESWPWN4GSKbNYe6mjFMX1zJIn11s"
+                      }
+                    },
+                    "object_type": "definition_activity"
+                  }
+                ]
+              },
+              {
+                "unique_name": "definition_activity_01ITJHZQV5PKO4poB93oRealsRTr0LxFwUt",
+                "name": "Condition Branch",
+                "title": "Condition Branch",
+                "type": "logic.condition_block",
+                "base_type": "activity",
+                "properties": {
+                  "condition": {
+                    "left_operand": "$activity.definition_activity_01IRWEFFVX0GY4XTfiA3TxsSIVyEjPrCoba.input.source_array[@].casebook_id$",
+                    "operator": "eq",
+                    "right_operand": ""
+                  },
+                  "continue_on_failure": false,
+                  "display_name": "Condition Branch",
+                  "skip_execution": false
+                },
+                "object_type": "definition_activity"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "unique_name": "definition_activity_01IOMDPI6OQLI5IAceHi3GIfND9teq2mE3T",
+        "name": "Delete from Table",
+        "title": "Delete from Penalty Table",
+        "type": "core.deleterowfromtable",
+        "base_type": "activity",
+        "properties": {
+          "action_timeout": 180,
+          "continue_on_failure": false,
+          "display_name": "Delete from Penalty Table",
+          "input_table": "$global.variable_01IR28VFKY35735IGIN4eP88f4Cth0IHBZ1.global.variable_01IR28VFKY35735IGIN4eP88f4Cth0IHBZ1$",
+          "rows": {
+            "rows_matching_criteria": true,
+            "where_clause": "penalty_points \u003e 0"
+          },
+          "skip_execution": false
+        },
+        "object_type": "definition_activity"
+      }
+    ],
+    "categories": [
+      "category_1BMfMXSnJMyt5Ihqi7rWJr5N8cf"
+    ]
+  },
+  "targets": {
+    "definition_target_01IP46AESWPWN4GSKbNYe6mjFMX1zJIn11s": {
+      "unique_name": "definition_target_01IP46AESWPWN4GSKbNYe6mjFMX1zJIn11s",
+      "name": "RTC CTR Private Intel",
+      "title": "RTC CTR Private Intel",
+      "type": "web-service.endpoint",
+      "base_type": "target",
+      "object_type": "definition_target",
+      "properties": {
+        "disable_certificate_validation": false,
+        "display_name": "RTC CTR Private Intel",
+        "host": "private.intel.amp.cisco.com",
+        "ignore_proxy": false,
+        "no_runtime_user": true,
+        "protocol": "https"
+      }
+    }
+  },
+  "variables": {
+    "variable_01IQ7XFDHCS3F0h3yo63lsldOUJaj3Yk7Sg": {
+      "unique_name": "variable_01IQ7XFDHCS3F0h3yo63lsldOUJaj3Yk7Sg",
+      "schema_id": "tabletype_01IQ7W81O5CF85AlH0LViQZILOZkZmKS9mI",
+      "properties": {
+        "value": [
+          {
+            "column_data": {
+              "event_string": "init",
+              "event_type": "init",
+              "hostname": "init",
+              "ip": "init",
+              "mac_address": "init",
+              "penalty": 0,
+              "type": "init",
+              "user": "",
+              "value": ""
+            }
+          },
+          {
+            "column_data": {
+              "event_string": "",
+              "event_type": "AMP",
+              "hostname": "vmrat33.labrats.se",
+              "ip": "10.1.33.33",
+              "mac_address": "00:50:56:8B:95:4A",
+              "penalty": 25,
+              "type": "sha256",
+              "user": "garfield@labrats.se",
+              "value": "d5221f6847978682234cb8ebfa951cb56b1323658679a820b168bbc1f5261a3b"
+            }
+          },
+          {
+            "column_data": {
+              "event_string": "",
+              "event_type": "AMP",
+              "hostname": "vmrat33.labrats.se",
+              "ip": "10.1.33.33",
+              "mac_address": "00:50:56:8B:95:4A",
+              "penalty": 25,
+              "type": "sha256",
+              "user": "garfield@labrats.se",
+              "value": "fa51a3bc680df33080a300da45bf232b8d08accf734875d8750fb9aedadceaf6"
+            }
+          },
+          {
+            "column_data": {
+              "event_string": "",
+              "event_type": "UMB",
+              "hostname": "",
+              "ip": "10.1.33.33",
+              "mac_address": "00:50:56:8B:95:4A",
+              "penalty": 25,
+              "type": "domain",
+              "user": "garfield@labrats.se",
+              "value": "sjpexaylsfjnopulpgkbqtkzieizcdtslnofpkafsqweztufpa.com"
+            }
+          },
+          {
+            "column_data": {
+              "event_string": "",
+              "event_type": "UMB",
+              "hostname": "",
+              "ip": "10.1.33.33",
+              "mac_address": "00:50:56:8B:95:4A",
+              "penalty": 25,
+              "type": "domain",
+              "user": "garfield@labrats.se",
+              "value": "hffmzplu.com"
+            }
+          }
+        ],
+        "scope": "global",
+        "name": "RTC Events Table",
+        "type": "datatype.table",
+        "is_required": false
+      },
+      "object_type": "variable"
+    },
+    "variable_01IR28VFKY35735IGIN4eP88f4Cth0IHBZ1": {
+      "unique_name": "variable_01IR28VFKY35735IGIN4eP88f4Cth0IHBZ1",
+      "schema_id": "tabletype_01IR27O7PUGNW3Nd6AZenY4vT0Md7ge0ioS",
+      "properties": {
+        "value": [
+          {
+            "column_data": {
+              "casebook_id": "init",
+              "id": "init",
+              "incident_id": "init",
+              "object_type": "init",
+              "penalty_points": 0,
+              "quarantine_state": "init"
+            }
+          },
+          {
+            "column_data": {
+              "casebook_id": "https://private.intel.amp.cisco.com:443/ctia/casebook/casebook-75029415-bf5a-4de1-bceb-1211b6786510",
+              "id": "garfield@labrats.se",
+              "object_type": "user",
+              "penalty_points": 100
+            }
+          },
+          {
+            "column_data": {
+              "casebook_id": "https://private.intel.amp.cisco.com:443/ctia/casebook/casebook-a0b1d9f9-01df-484f-af3a-64f525b73695",
+              "id": "10.1.33.33",
+              "object_type": "ip",
+              "penalty_points": 100
+            }
+          },
+          {
+            "column_data": {
+              "casebook_id": "",
+              "id": "vmrat33.labrats.se",
+              "object_type": "hostname",
+              "penalty_points": 50
+            }
+          },
+          {
+            "column_data": {
+              "casebook_id": "https://private.intel.amp.cisco.com:443/ctia/casebook/casebook-84dd57a1-93fb-46bf-8470-6399653ac1e5",
+              "id": "00:50:56:8B:95:4A",
+              "object_type": "mac_address",
+              "penalty_points": 100
+            }
+          }
+        ],
+        "scope": "global",
+        "name": "RTC Penalty Table",
+        "type": "datatype.table",
+        "is_required": false
+      },
+      "object_type": "variable"
+    }
+  },
+  "table_types": {
+    "tabletype_01IQ7W81O5CF85AlH0LViQZILOZkZmKS9mI": {
+      "unique_name": "tabletype_01IQ7W81O5CF85AlH0LViQZILOZkZmKS9mI",
+      "data_type": "datatype.tabletype",
+      "display_name": "RTC Event Table Type",
+      "columns": [
+        {
+          "name": "hostname",
+          "title": "hostname",
+          "type": "string"
+        },
+        {
+          "name": "ip",
+          "title": "ip",
+          "type": "string"
+        },
+        {
+          "name": "user",
+          "title": "user",
+          "type": "string"
+        },
+        {
+          "name": "event_string",
+          "title": "event_string",
+          "type": "string"
+        },
+        {
+          "name": "event_type",
+          "title": "event_type",
+          "type": "string"
+        },
+        {
+          "name": "mac_address",
+          "title": "mac_address",
+          "type": "string"
+        },
+        {
+          "name": "penalty",
+          "title": "penalty",
+          "type": "integer"
+        },
+        {
+          "name": "type",
+          "title": "type",
+          "type": "string"
+        },
+        {
+          "name": "value",
+          "title": "value",
+          "type": "string"
+        }
+      ],
+      "base_type": "datatype",
+      "object_type": "tabletype"
+    },
+    "tabletype_01IR27O7PUGNW3Nd6AZenY4vT0Md7ge0ioS": {
+      "unique_name": "tabletype_01IR27O7PUGNW3Nd6AZenY4vT0Md7ge0ioS",
+      "data_type": "datatype.tabletype",
+      "display_name": "RTC Penalty Table Type",
+      "columns": [
+        {
+          "name": "object_type",
+          "title": "object_type",
+          "type": "string"
+        },
+        {
+          "name": "penalty_points",
+          "title": "penalty_points",
+          "type": "integer"
+        },
+        {
+          "name": "quarantine_state",
+          "title": "quarantine_state",
+          "type": "string"
+        },
+        {
+          "name": "casebook_id",
+          "title": "casebook_id",
+          "type": "string"
+        },
+        {
+          "name": "id",
+          "title": "id",
+          "type": "string"
+        },
+        {
+          "name": "incident_id",
+          "title": "incident_id",
+          "type": "string"
+        }
+      ],
+      "base_type": "datatype",
+      "object_type": "tabletype"
+    }
+  },
+  "atomic_workflows": [
+    "definition_workflow_01IOHWHM1ICAW3AYgBgaNeGiuEhsewIGwz2",
+    "definition_workflow_01ITJKGL2ER9M3q4rd7wMGkT0wFosfeXi6o"
+  ]
+}
