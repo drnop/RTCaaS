@@ -1,0 +1,480 @@
+{
+  "workflow": {
+    "unique_name": "definition_workflow_01IMR4A97SK9N03TvfbKcSdtM6ww0Xt8XUm",
+    "name": "RTC Update Penalty Table",
+    "title": "RTC Update Penalty Table",
+    "type": "generic.workflow",
+    "base_type": "workflow",
+    "variables": [
+      {
+        "schema_id": "datatype.integer",
+        "properties": {
+          "value": 0,
+          "scope": "output",
+          "name": "old_penalty",
+          "type": "datatype.integer",
+          "is_required": false
+        },
+        "unique_name": "variable_workflow_01IOO70NK1KNL6NBaGyqUEKuVnffZGqWTTv",
+        "object_type": "variable_workflow"
+      },
+      {
+        "schema_id": "datatype.string",
+        "properties": {
+          "value": "",
+          "scope": "output",
+          "name": "casebook_id",
+          "type": "datatype.string",
+          "is_required": false
+        },
+        "unique_name": "variable_workflow_01IR7PEMUH8JK3HHdJbzFZwn9R6v503qAzx",
+        "object_type": "variable_workflow"
+      },
+      {
+        "schema_id": "datatype.string",
+        "properties": {
+          "value": "",
+          "scope": "input",
+          "name": "object_type",
+          "type": "datatype.string",
+          "is_required": false
+        },
+        "unique_name": "variable_workflow_01IMR4A8WVQ1127Gj2hQVU6Uz3q7sPqUOaH",
+        "object_type": "variable_workflow"
+      },
+      {
+        "schema_id": "datatype.string",
+        "properties": {
+          "value": "",
+          "scope": "input",
+          "name": "id",
+          "type": "datatype.string",
+          "is_required": false
+        },
+        "unique_name": "variable_workflow_01IMR6NVSB07W2jS0NR5ac9q3vI3P1DWANY",
+        "object_type": "variable_workflow"
+      },
+      {
+        "schema_id": "datatype.integer",
+        "properties": {
+          "value": 0,
+          "scope": "input",
+          "name": "penalty_in",
+          "type": "datatype.integer",
+          "is_required": false
+        },
+        "unique_name": "variable_workflow_01IMRLX2MKZZG2Z3MAenYAAHaCmqGJMyfXo",
+        "object_type": "variable_workflow"
+      },
+      {
+        "schema_id": "datatype.integer",
+        "properties": {
+          "value": 0,
+          "scope": "output",
+          "name": "penalty_out",
+          "type": "datatype.integer",
+          "is_required": false
+        },
+        "unique_name": "variable_workflow_01IMRMEGGJ1A55UAsvXvF1bmqaKzsr7aWdP",
+        "object_type": "variable_workflow"
+      }
+    ],
+    "properties": {
+      "atomic": {
+        "atomic_group": "Atomic",
+        "is_atomic": true
+      },
+      "delete_workflow_instance": false,
+      "display_name": "RTC Update Penalty Table",
+      "runtime_user": {
+        "override_target_runtime_user": false,
+        "specify_on_workflow_start": false,
+        "target_default": true
+      },
+      "target": {
+        "execute_on_target_group": false,
+        "execute_on_workflow_target": false,
+        "no_target": true,
+        "specify_on_workflow_start": false
+      }
+    },
+    "object_type": "definition_workflow",
+    "actions": [
+      {
+        "unique_name": "definition_activity_01IMR4CZ76D6Q5w5hv88hel8odKNmqISpDh",
+        "name": "Select from Table",
+        "title": "Check if Object in Table",
+        "type": "core.selectfromtable",
+        "base_type": "activity",
+        "properties": {
+          "action_timeout": 180,
+          "columns": [
+            {
+              "column_name": "object_type",
+              "column_type": "string"
+            },
+            {
+              "column_name": "id",
+              "column_type": "string"
+            },
+            {
+              "column_name": "penalty_points",
+              "column_type": "integer"
+            },
+            {
+              "column_name": "casebook_id",
+              "column_type": "string"
+            },
+            {
+              "column_name": "incident_id",
+              "column_type": "string"
+            },
+            {
+              "column_name": "quarantine_state",
+              "column_type": "string"
+            }
+          ],
+          "continue_on_failure": false,
+          "display_name": "Check if Object in Table",
+          "input_table": "$global.variable_01IR28VFKY35735IGIN4eP88f4Cth0IHBZ1.global.variable_01IR28VFKY35735IGIN4eP88f4Cth0IHBZ1$",
+          "number_of_rows": {
+            "all_rows": true,
+            "at_most": false
+          },
+          "persist_output": false,
+          "skip_execution": false,
+          "sorting": {
+            "no_sort": true,
+            "sort_by": false
+          },
+          "where_clause": "id = '$workflow.definition_workflow_01IMR4A97SK9N03TvfbKcSdtM6ww0Xt8XUm.input.variable_workflow_01IMR6NVSB07W2jS0NR5ac9q3vI3P1DWANY$' AND object_type = '$workflow.definition_workflow_01IMR4A97SK9N03TvfbKcSdtM6ww0Xt8XUm.input.variable_workflow_01IMR4A8WVQ1127Gj2hQVU6Uz3q7sPqUOaH$'\n"
+        },
+        "object_type": "definition_activity"
+      },
+      {
+        "unique_name": "definition_activity_01IMR4DC533HS2QfbZmMxtWj0CW9M83yOXb",
+        "name": "Condition Block",
+        "title": "Object in Table?",
+        "type": "logic.if_else",
+        "base_type": "activity",
+        "properties": {
+          "continue_on_failure": false,
+          "display_name": "Object in Table?",
+          "skip_execution": false
+        },
+        "object_type": "definition_activity",
+        "blocks": [
+          {
+            "unique_name": "definition_activity_01IMR4DJTFSM74BuXKB7dF9HRh2I073QMAH",
+            "name": "Condition Branch",
+            "title": "Object is in Table",
+            "type": "logic.condition_block",
+            "base_type": "activity",
+            "properties": {
+              "condition": {
+                "left_operand": "$activity.definition_activity_01IMR4CZ76D6Q5w5hv88hel8odKNmqISpDh.output.row_count$",
+                "operator": "eq",
+                "right_operand": 1
+              },
+              "continue_on_failure": false,
+              "display_name": "Object is in Table",
+              "skip_execution": false
+            },
+            "object_type": "definition_activity",
+            "actions": [
+              {
+                "unique_name": "definition_activity_01IOPD9NUIW3U6GdQSRVMZAsNEEcxkAdNlJ",
+                "name": "Set Variables",
+                "title": "Set output old penalty and casebook id",
+                "type": "core.set_multiple_variables",
+                "base_type": "activity",
+                "properties": {
+                  "continue_on_failure": false,
+                  "display_name": "Set output old penalty and casebook id",
+                  "skip_execution": false,
+                  "variables_to_update": [
+                    {
+                      "variable_to_update": "$workflow.definition_workflow_01IMR4A97SK9N03TvfbKcSdtM6ww0Xt8XUm.output.variable_workflow_01IOO70NK1KNL6NBaGyqUEKuVnffZGqWTTv$",
+                      "variable_value_new": "$activity.definition_activity_01IMR4CZ76D6Q5w5hv88hel8odKNmqISpDh.output.output_table[0].penalty_points$"
+                    },
+                    {
+                      "variable_to_update": "$workflow.definition_workflow_01IMR4A97SK9N03TvfbKcSdtM6ww0Xt8XUm.output.variable_workflow_01IR7PEMUH8JK3HHdJbzFZwn9R6v503qAzx$",
+                      "variable_value_new": "$activity.definition_activity_01IMR4CZ76D6Q5w5hv88hel8odKNmqISpDh.output.output_table[0].casebook_id$"
+                    }
+                  ]
+                },
+                "object_type": "definition_activity"
+              },
+              {
+                "unique_name": "definition_activity_01IMR4DSSEH641FipjLRysFz3k9QF0GYGKd",
+                "name": "Set Variables",
+                "title": "SET CURRENT PENALTY POINTS",
+                "type": "core.set_multiple_variables",
+                "base_type": "activity",
+                "properties": {
+                  "continue_on_failure": false,
+                  "display_name": "SET CURRENT PENALTY POINTS",
+                  "skip_execution": false,
+                  "variables_to_update": [
+                    {
+                      "variable_to_update": "$workflow.definition_workflow_01IMR4A97SK9N03TvfbKcSdtM6ww0Xt8XUm.output.variable_workflow_01IMRMEGGJ1A55UAsvXvF1bmqaKzsr7aWdP$",
+                      "variable_value_new": "$workflow.definition_workflow_01IMR4A97SK9N03TvfbKcSdtM6ww0Xt8XUm.output.variable_workflow_01IOO70NK1KNL6NBaGyqUEKuVnffZGqWTTv$+$workflow.definition_workflow_01IMR4A97SK9N03TvfbKcSdtM6ww0Xt8XUm.input.variable_workflow_01IMRLX2MKZZG2Z3MAenYAAHaCmqGJMyfXo$"
+                    }
+                  ]
+                },
+                "object_type": "definition_activity"
+              },
+              {
+                "unique_name": "definition_activity_01IMR4E20CH5H1Ottpcu2f6gastJs1eQ4EJ",
+                "name": "Update Row in Table",
+                "title": "UPDATE PENALTY TABLE",
+                "type": "core.updaterowintable",
+                "base_type": "activity",
+                "properties": {
+                  "action_timeout": 180,
+                  "columns": [
+                    {
+                      "column_name": "penalty_points",
+                      "column_type": "integer"
+                    }
+                  ],
+                  "continue_on_failure": false,
+                  "display_name": "UPDATE PENALTY TABLE",
+                  "input_table": "$global.variable_01IR28VFKY35735IGIN4eP88f4Cth0IHBZ1.global.variable_01IR28VFKY35735IGIN4eP88f4Cth0IHBZ1$",
+                  "row": [
+                    {
+                      "key": "penalty_points",
+                      "type": "integer",
+                      "value": "$workflow.definition_workflow_01IMR4A97SK9N03TvfbKcSdtM6ww0Xt8XUm.input.variable_workflow_01IMRLX2MKZZG2Z3MAenYAAHaCmqGJMyfXo$+$activity.definition_activity_01IMR4CZ76D6Q5w5hv88hel8odKNmqISpDh.output.output_table[0].penalty_points$"
+                    }
+                  ],
+                  "rows": {
+                    "rows_matching_criteria": true,
+                    "where_clause": "id = '$workflow.definition_workflow_01IMR4A97SK9N03TvfbKcSdtM6ww0Xt8XUm.input.variable_workflow_01IMR6NVSB07W2jS0NR5ac9q3vI3P1DWANY$' AND object_type = '$workflow.definition_workflow_01IMR4A97SK9N03TvfbKcSdtM6ww0Xt8XUm.input.variable_workflow_01IMR4A8WVQ1127Gj2hQVU6Uz3q7sPqUOaH$'"
+                  },
+                  "skip_execution": false
+                },
+                "object_type": "definition_activity"
+              }
+            ]
+          },
+          {
+            "unique_name": "definition_activity_01IMR4EC1R1WM1MtxQcgpK1xZsHcdjD3ZoI",
+            "name": "Condition Branch",
+            "title": "Condition Branch",
+            "type": "logic.condition_block",
+            "base_type": "activity",
+            "properties": {
+              "condition": {
+                "left_operand": "$activity.definition_activity_01IMR4CZ76D6Q5w5hv88hel8odKNmqISpDh.output.row_count$",
+                "operator": "eq",
+                "right_operand": 0
+              },
+              "continue_on_failure": false,
+              "display_name": "Condition Branch",
+              "skip_execution": false
+            },
+            "object_type": "definition_activity",
+            "actions": [
+              {
+                "unique_name": "definition_activity_01IOO7KAUISI96QBBss6LmTwiByDaUU2ciZ",
+                "name": "Set Variables",
+                "title": "Set output old penalty",
+                "type": "core.set_multiple_variables",
+                "base_type": "activity",
+                "properties": {
+                  "continue_on_failure": false,
+                  "display_name": "Set output old penalty",
+                  "skip_execution": false,
+                  "variables_to_update": [
+                    {
+                      "variable_to_update": "$workflow.definition_workflow_01IMR4A97SK9N03TvfbKcSdtM6ww0Xt8XUm.output.variable_workflow_01IOO70NK1KNL6NBaGyqUEKuVnffZGqWTTv$",
+                      "variable_value_new": "$workflow.definition_workflow_01IMR4A97SK9N03TvfbKcSdtM6ww0Xt8XUm.input.variable_workflow_01IMRLX2MKZZG2Z3MAenYAAHaCmqGJMyfXo$"
+                    }
+                  ]
+                },
+                "object_type": "definition_activity"
+              },
+              {
+                "unique_name": "definition_activity_01IMRYV03O50B6Zx6cwzRthuq6uB4kQWuVm",
+                "name": "Set Variables",
+                "title": "Set Current Penalty Points",
+                "type": "core.set_multiple_variables",
+                "base_type": "activity",
+                "properties": {
+                  "continue_on_failure": false,
+                  "display_name": "Set Current Penalty Points",
+                  "skip_execution": false,
+                  "variables_to_update": [
+                    {
+                      "variable_to_update": "$workflow.definition_workflow_01IMR4A97SK9N03TvfbKcSdtM6ww0Xt8XUm.output.variable_workflow_01IMRMEGGJ1A55UAsvXvF1bmqaKzsr7aWdP$",
+                      "variable_value_new": "$workflow.definition_workflow_01IMR4A97SK9N03TvfbKcSdtM6ww0Xt8XUm.input.variable_workflow_01IMRLX2MKZZG2Z3MAenYAAHaCmqGJMyfXo$"
+                    }
+                  ]
+                },
+                "object_type": "definition_activity"
+              },
+              {
+                "unique_name": "definition_activity_01IMR4EKVPY0T4kZMCrkTolFCMPJ4lXevV9",
+                "name": "Add Row to Table",
+                "title": "INSERT PENALTY TABLE",
+                "type": "core.addrowtotable",
+                "base_type": "activity",
+                "properties": {
+                  "action_timeout": 180,
+                  "continue_on_failure": false,
+                  "display_name": "INSERT PENALTY TABLE",
+                  "input_table": "$global.variable_01IR28VFKY35735IGIN4eP88f4Cth0IHBZ1.global.variable_01IR28VFKY35735IGIN4eP88f4Cth0IHBZ1$",
+                  "row": [
+                    {
+                      "key": "object_type",
+                      "type": "string",
+                      "value": "$workflow.definition_workflow_01IMR4A97SK9N03TvfbKcSdtM6ww0Xt8XUm.input.variable_workflow_01IMR4A8WVQ1127Gj2hQVU6Uz3q7sPqUOaH$"
+                    },
+                    {
+                      "key": "id",
+                      "type": "string",
+                      "value": "$workflow.definition_workflow_01IMR4A97SK9N03TvfbKcSdtM6ww0Xt8XUm.input.variable_workflow_01IMR6NVSB07W2jS0NR5ac9q3vI3P1DWANY$"
+                    },
+                    {
+                      "key": "penalty_points",
+                      "type": "integer",
+                      "value": "$workflow.definition_workflow_01IMR4A97SK9N03TvfbKcSdtM6ww0Xt8XUm.output.variable_workflow_01IMRMEGGJ1A55UAsvXvF1bmqaKzsr7aWdP$"
+                    },
+                    {
+                      "key": "casebook_id",
+                      "type": "string",
+                      "value": ""
+                    },
+                    {
+                      "key": "incident_id",
+                      "type": "string"
+                    },
+                    {
+                      "key": "quarantine_state",
+                      "type": "string"
+                    }
+                  ],
+                  "skip_execution": false
+                },
+                "object_type": "definition_activity"
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "categories": [
+      "category_01I4ZSPMNI5KO0KKuu0fyfmzltRmOM9OE8w"
+    ]
+  },
+  "categories": {
+    "category_01I4ZSPMNI5KO0KKuu0fyfmzltRmOM9OE8w": {
+      "unique_name": "category_01I4ZSPMNI5KO0KKuu0fyfmzltRmOM9OE8w",
+      "name": "RTC-atomics",
+      "title": "RTC-atomics",
+      "type": "basic.category",
+      "base_type": "category",
+      "category_type": "custom",
+      "object_type": "category"
+    }
+  },
+  "variables": {
+    "variable_01IR28VFKY35735IGIN4eP88f4Cth0IHBZ1": {
+      "unique_name": "variable_01IR28VFKY35735IGIN4eP88f4Cth0IHBZ1",
+      "schema_id": "tabletype_01IR27O7PUGNW3Nd6AZenY4vT0Md7ge0ioS",
+      "properties": {
+        "value": [
+          {
+            "column_data": {
+              "casebook_id": "init",
+              "id": "init",
+              "incident_id": "init",
+              "object_type": "init",
+              "penalty_points": 0,
+              "quarantine_state": "init"
+            }
+          },
+          {
+            "column_data": {
+              "casebook_id": "https://private.intel.amp.cisco.com:443/ctia/casebook/casebook-75029415-bf5a-4de1-bceb-1211b6786510",
+              "id": "garfield@labrats.se",
+              "object_type": "user",
+              "penalty_points": 100
+            }
+          },
+          {
+            "column_data": {
+              "casebook_id": "https://private.intel.amp.cisco.com:443/ctia/casebook/casebook-a0b1d9f9-01df-484f-af3a-64f525b73695",
+              "id": "10.1.33.33",
+              "object_type": "ip",
+              "penalty_points": 100
+            }
+          },
+          {
+            "column_data": {
+              "casebook_id": "",
+              "id": "vmrat33.labrats.se",
+              "object_type": "hostname",
+              "penalty_points": 50
+            }
+          },
+          {
+            "column_data": {
+              "casebook_id": "https://private.intel.amp.cisco.com:443/ctia/casebook/casebook-84dd57a1-93fb-46bf-8470-6399653ac1e5",
+              "id": "00:50:56:8B:95:4A",
+              "object_type": "mac_address",
+              "penalty_points": 100
+            }
+          }
+        ],
+        "scope": "global",
+        "name": "RTC Penalty Table",
+        "type": "datatype.table",
+        "is_required": false
+      },
+      "object_type": "variable"
+    }
+  },
+  "table_types": {
+    "tabletype_01IR27O7PUGNW3Nd6AZenY4vT0Md7ge0ioS": {
+      "unique_name": "tabletype_01IR27O7PUGNW3Nd6AZenY4vT0Md7ge0ioS",
+      "data_type": "datatype.tabletype",
+      "display_name": "RTC Penalty Table Type",
+      "columns": [
+        {
+          "name": "id",
+          "title": "id",
+          "type": "string"
+        },
+        {
+          "name": "incident_id",
+          "title": "incident_id",
+          "type": "string"
+        },
+        {
+          "name": "object_type",
+          "title": "object_type",
+          "type": "string"
+        },
+        {
+          "name": "penalty_points",
+          "title": "penalty_points",
+          "type": "integer"
+        },
+        {
+          "name": "quarantine_state",
+          "title": "quarantine_state",
+          "type": "string"
+        },
+        {
+          "name": "casebook_id",
+          "title": "casebook_id",
+          "type": "string"
+        }
+      ],
+      "base_type": "datatype",
+      "object_type": "tabletype"
+    }
+  }
+}
