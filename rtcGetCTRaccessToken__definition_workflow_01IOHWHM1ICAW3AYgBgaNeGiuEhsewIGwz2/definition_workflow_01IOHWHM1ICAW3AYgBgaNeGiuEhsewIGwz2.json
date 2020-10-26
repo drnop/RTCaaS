@@ -1,0 +1,169 @@
+{
+  "workflow": {
+    "unique_name": "definition_workflow_01IOHWHM1ICAW3AYgBgaNeGiuEhsewIGwz2",
+    "name": "RTC Get CTR Access Token",
+    "title": "RTC Get CTR Access Token",
+    "type": "generic.workflow",
+    "base_type": "workflow",
+    "variables": [
+      {
+        "schema_id": "datatype.string",
+        "properties": {
+          "value": "",
+          "scope": "output",
+          "name": "access_token",
+          "type": "datatype.string",
+          "is_required": false
+        },
+        "unique_name": "variable_workflow_01IPIHSP8DN4V2JS6MDYJePSpuB4fugAct9",
+        "object_type": "variable_workflow"
+      }
+    ],
+    "properties": {
+      "atomic": {
+        "atomic_group": "Atomic",
+        "is_atomic": true
+      },
+      "delete_workflow_instance": false,
+      "display_name": "RTC Get CTR Access Token",
+      "runtime_user": {
+        "override_target_runtime_user": false,
+        "specify_on_workflow_start": false,
+        "target_default": true
+      },
+      "target": {
+        "execute_on_target_group": false,
+        "execute_on_workflow_target": false,
+        "no_target": true,
+        "specify_on_workflow_start": false
+      }
+    },
+    "object_type": "definition_workflow",
+    "actions": [
+      {
+        "unique_name": "definition_activity_01IOHWLE3WMFV7TQ6bOtgQrOHKaKJeF8uBI",
+        "name": "HTTP Request",
+        "title": "Get Access Token",
+        "type": "web-service.http_request",
+        "base_type": "activity",
+        "properties": {
+          "accept": "application/json",
+          "action_timeout": 180,
+          "allow_auto_redirect": true,
+          "body": "grant_type=client_credentials",
+          "continue_on_error_status_code": false,
+          "continue_on_failure": false,
+          "custom_headers": [
+            {
+              "name": "Content-Type",
+              "value": "application/x-www-form-urlencoded"
+            }
+          ],
+          "display_name": "Get Access Token",
+          "method": "POST",
+          "relative_url": "/iroh/oauth2/token",
+          "runtime_user": {
+            "override_target_runtime_user": true,
+            "runtime_user_id": "definition_runtime_user_01IO96P4VHHDX47s3A9VixIPAAcBb3Jaquc"
+          },
+          "skip_execution": false,
+          "target": {
+            "override_workflow_target": true,
+            "target_id": "definition_target_01IOHYMVP3ZXG2qmdUiUnzjiBa9r2N3ITMW"
+          }
+        },
+        "object_type": "definition_activity"
+      },
+      {
+        "unique_name": "definition_activity_01IOIIKMV5CGH0rRoRcUlaLL7xKdnYnrxFt",
+        "name": "JSONPath Query",
+        "title": "Extract access-token",
+        "type": "corejava.jsonpathquery",
+        "base_type": "activity",
+        "properties": {
+          "action_timeout": 180,
+          "continue_on_failure": false,
+          "display_name": "Extract access-token",
+          "input_json": "$activity.definition_activity_01IOHWLE3WMFV7TQ6bOtgQrOHKaKJeF8uBI.output.response_body$",
+          "jsonpath_queries": [
+            {
+              "jsonpath_query": "$.access_token",
+              "jsonpath_query_name": "access_token",
+              "jsonpath_query_type": "string"
+            }
+          ],
+          "skip_execution": false
+        },
+        "object_type": "definition_activity"
+      },
+      {
+        "unique_name": "definition_activity_01IOILGEZF3OL19RaQLdxlWCXm2mxiOvwJ0",
+        "name": "Set Variables",
+        "title": "Set Output access_token",
+        "type": "core.set_multiple_variables",
+        "base_type": "activity",
+        "properties": {
+          "continue_on_failure": false,
+          "display_name": "Set Output access_token",
+          "skip_execution": false,
+          "variables_to_update": [
+            {
+              "variable_to_update": "$workflow.definition_workflow_01IOHWHM1ICAW3AYgBgaNeGiuEhsewIGwz2.output.variable_workflow_01IPIHSP8DN4V2JS6MDYJePSpuB4fugAct9$",
+              "variable_value_new": "$activity.definition_activity_01IOIIKMV5CGH0rRoRcUlaLL7xKdnYnrxFt.output.jsonpath_queries.access_token$"
+            }
+          ]
+        },
+        "object_type": "definition_activity"
+      }
+    ],
+    "categories": [
+      "category_01IFVKND3SVRK1axEt6HjLGZIY3P9yqFztU"
+    ]
+  },
+  "categories": {
+    "category_01IFVKND3SVRK1axEt6HjLGZIY3P9yqFztU": {
+      "unique_name": "category_01IFVKND3SVRK1axEt6HjLGZIY3P9yqFztU",
+      "name": "RTC",
+      "title": "RTC",
+      "type": "basic.category",
+      "base_type": "category",
+      "category_type": "custom",
+      "object_type": "category"
+    }
+  },
+  "targets": {
+    "definition_target_01IOHYMVP3ZXG2qmdUiUnzjiBa9r2N3ITMW": {
+      "unique_name": "definition_target_01IOHYMVP3ZXG2qmdUiUnzjiBa9r2N3ITMW",
+      "name": "RTC CTR Target",
+      "title": "RTC CTR Target",
+      "type": "web-service.endpoint",
+      "base_type": "target",
+      "object_type": "definition_target",
+      "properties": {
+        "default_runtime_user_id": "definition_runtime_user_01IO96P4VHHDX47s3A9VixIPAAcBb3Jaquc",
+        "disable_certificate_validation": false,
+        "display_name": "RTC CTR Target",
+        "host": "visibility.amp.cisco.com",
+        "ignore_proxy": false,
+        "no_runtime_user": false,
+        "protocol": "https"
+      }
+    }
+  },
+  "runtime_users": {
+    "definition_runtime_user_01IO96P4VHHDX47s3A9VixIPAAcBb3Jaquc": {
+      "unique_name": "definition_runtime_user_01IO96P4VHHDX47s3A9VixIPAAcBb3Jaquc",
+      "name": "RTC CTR Credentials",
+      "title": "RTC CTR Credentials",
+      "type": "runtime_user.web-service_basic_credentials",
+      "base_type": "runtime_user",
+      "object_type": "definition_runtime_user",
+      "properties": {
+        "auth_option": "*****",
+        "basic_password": "*****",
+        "basic_username": "*****",
+        "display_name": "RTC CTR Credentials"
+      }
+    }
+  }
+}
