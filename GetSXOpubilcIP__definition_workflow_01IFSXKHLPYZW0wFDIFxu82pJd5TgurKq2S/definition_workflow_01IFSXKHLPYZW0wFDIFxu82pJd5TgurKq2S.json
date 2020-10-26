@@ -1,0 +1,132 @@
+{
+  "workflow": {
+    "unique_name": "definition_workflow_01IFSXKHLPYZW0wFDIFxu82pJd5TgurKq2S",
+    "name": "Get SXO public IP",
+    "title": "Get SXO public IP",
+    "type": "generic.workflow",
+    "base_type": "workflow",
+    "variables": [
+      {
+        "schema_id": "datatype.string",
+        "properties": {
+          "value": "",
+          "scope": "output",
+          "name": "public_ip",
+          "type": "datatype.string",
+          "is_required": false
+        },
+        "unique_name": "variable_workflow_01IFSY8WGK0E86vPeLxxX5P4N2eMfsI5P4v",
+        "object_type": "variable_workflow"
+      }
+    ],
+    "properties": {
+      "atomic": {
+        "is_atomic": false
+      },
+      "delete_workflow_instance": false,
+      "display_name": "Get SXO public IP",
+      "runtime_user": {
+        "override_target_runtime_user": false,
+        "specify_on_workflow_start": false,
+        "target_default": true
+      },
+      "target": {
+        "execute_on_target_group": false,
+        "execute_on_workflow_target": false,
+        "no_target": true,
+        "specify_on_workflow_start": false
+      }
+    },
+    "object_type": "definition_workflow",
+    "actions": [
+      {
+        "unique_name": "definition_activity_01IFSYMMSX2P17MiRUJPDC3a6T53h7UbPNs",
+        "name": "HTTP Request",
+        "title": "Get IP from ipify API",
+        "type": "web-service.http_request",
+        "base_type": "activity",
+        "properties": {
+          "action_timeout": 180,
+          "allow_auto_redirect": true,
+          "continue_on_error_status_code": false,
+          "continue_on_failure": false,
+          "display_name": "Get IP from ipify API",
+          "method": "GET",
+          "runtime_user": {
+            "override_target_runtime_user": false,
+            "target_default": true
+          },
+          "skip_execution": false,
+          "target": {
+            "override_workflow_target": true,
+            "target_id": "definition_target_01IFSXCCST2MW5Gj3pJ6hLCuBUPQApdJLWd"
+          }
+        },
+        "object_type": "definition_activity"
+      },
+      {
+        "unique_name": "definition_activity_01IFT1FVL02UO6hC4dGyHOqfLvPyY0eLHTC",
+        "name": "JSONPath Query",
+        "title": "JSONPath Query",
+        "type": "corejava.jsonpathquery",
+        "base_type": "activity",
+        "properties": {
+          "action_timeout": 180,
+          "continue_on_failure": false,
+          "display_name": "JSONPath Query",
+          "input_json": "$activity.definition_activity_01IFSYMMSX2P17MiRUJPDC3a6T53h7UbPNs.output.response_body$",
+          "jsonpath_queries": [
+            {
+              "jsonpath_query": "$.ip",
+              "jsonpath_query_name": "ip",
+              "jsonpath_query_type": "string"
+            }
+          ],
+          "skip_execution": false
+        },
+        "object_type": "definition_activity"
+      },
+      {
+        "unique_name": "definition_activity_01JJ8SO5U3DVX4t5pl2tgNv1KbS9MZCnWpr",
+        "name": "Set Variables",
+        "title": "Set SXO public IP",
+        "type": "core.set_multiple_variables",
+        "base_type": "activity",
+        "properties": {
+          "continue_on_failure": false,
+          "display_name": "Set SXO public IP",
+          "skip_execution": false,
+          "variables_to_update": [
+            {
+              "variable_to_update": "$workflow.definition_workflow_01IFSXKHLPYZW0wFDIFxu82pJd5TgurKq2S.output.variable_workflow_01IFSY8WGK0E86vPeLxxX5P4N2eMfsI5P4v$",
+              "variable_value_new": "$activity.definition_activity_01IFT1FVL02UO6hC4dGyHOqfLvPyY0eLHTC.output.jsonpath_queries.ip$"
+            }
+          ]
+        },
+        "object_type": "definition_activity"
+      }
+    ],
+    "categories": [
+      "category_1BMfMXSnJMyt5Ihqi7rWJr5N8cf"
+    ]
+  },
+  "targets": {
+    "definition_target_01IFSXCCST2MW5Gj3pJ6hLCuBUPQApdJLWd": {
+      "unique_name": "definition_target_01IFSXCCST2MW5Gj3pJ6hLCuBUPQApdJLWd",
+      "name": "ipify - find out IP API",
+      "title": "ipify - find out IP API",
+      "type": "web-service.endpoint",
+      "base_type": "target",
+      "object_type": "definition_target",
+      "properties": {
+        "disable_certificate_validation": false,
+        "display_name": "ipify - find out IP API",
+        "host": "api.ipify.org",
+        "ignore_proxy": false,
+        "no_runtime_user": true,
+        "path": "?format=json",
+        "protocol": "https"
+      }
+    }
+  }
+}
