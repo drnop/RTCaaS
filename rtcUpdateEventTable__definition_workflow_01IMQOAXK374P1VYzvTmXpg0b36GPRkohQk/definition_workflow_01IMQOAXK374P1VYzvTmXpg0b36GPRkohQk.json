@@ -1,0 +1,507 @@
+{
+  "workflow": {
+    "unique_name": "definition_workflow_01IMQOAXK374P1VYzvTmXpg0b36GPRkohQk",
+    "name": "RTC Update Event Table",
+    "title": "RTC Update Event Table",
+    "type": "generic.workflow",
+    "base_type": "workflow",
+    "variables": [
+      {
+        "schema_id": "datatype.boolean",
+        "properties": {
+          "value": false,
+          "scope": "output",
+          "name": "new_event",
+          "type": "datatype.boolean",
+          "is_required": false
+        },
+        "unique_name": "variable_workflow_01IMV1ZZKWLJH06n8hycxt8uCV5HtFoYXIO",
+        "object_type": "variable_workflow"
+      },
+      {
+        "schema_id": "datatype.string",
+        "properties": {
+          "value": "",
+          "scope": "input",
+          "name": "observable",
+          "type": "datatype.string",
+          "is_required": false
+        },
+        "unique_name": "variable_workflow_01IMUVLXMXE9K5rGWVNeJKA2m5LQwcwFM8r",
+        "object_type": "variable_workflow"
+      },
+      {
+        "schema_id": "datatype.string",
+        "properties": {
+          "value": "",
+          "scope": "input",
+          "name": "event_type",
+          "type": "datatype.string",
+          "is_required": false
+        },
+        "unique_name": "variable_workflow_01IMV4PNHUGDH4wEWdhEF833h1BHiTOQMFw",
+        "object_type": "variable_workflow"
+      },
+      {
+        "schema_id": "datatype.string",
+        "properties": {
+          "value": "",
+          "scope": "input",
+          "name": "type",
+          "type": "datatype.string",
+          "is_required": false
+        },
+        "unique_name": "variable_workflow_01IQARABPBL551kDqTVtqFm2rKi5bkD6KfI",
+        "object_type": "variable_workflow"
+      },
+      {
+        "schema_id": "datatype.string",
+        "properties": {
+          "value": "",
+          "scope": "input",
+          "name": "value",
+          "type": "datatype.string",
+          "is_required": false
+        },
+        "unique_name": "variable_workflow_01IQARG2LRYV36j2i5psTQgmMu4vhHUSpZG",
+        "object_type": "variable_workflow"
+      },
+      {
+        "schema_id": "datatype.string",
+        "properties": {
+          "value": "",
+          "scope": "local",
+          "name": "updatetime",
+          "type": "datatype.string",
+          "is_required": false
+        },
+        "unique_name": "variable_workflow_01IMV1BU6CD3S0Apaw6ZEHugEMaltxIB0Lo",
+        "object_type": "variable_workflow"
+      },
+      {
+        "schema_id": "datatype.string",
+        "properties": {
+          "value": "",
+          "scope": "input",
+          "name": "username",
+          "type": "datatype.string",
+          "is_required": false
+        },
+        "unique_name": "variable_workflow_01IMUTNEA0LI42zZFafpdsicoFVt8xWg2px",
+        "object_type": "variable_workflow"
+      },
+      {
+        "schema_id": "datatype.string",
+        "properties": {
+          "value": "",
+          "scope": "input",
+          "name": "ip",
+          "type": "datatype.string",
+          "is_required": false
+        },
+        "unique_name": "variable_workflow_01IMUU25DQ3FL0SLC9tRgckBq8a169qWxwx",
+        "object_type": "variable_workflow"
+      },
+      {
+        "schema_id": "datatype.string",
+        "properties": {
+          "value": "",
+          "scope": "input",
+          "name": "mac_address",
+          "type": "datatype.string",
+          "is_required": false
+        },
+        "unique_name": "variable_workflow_01IMUU9IBOMU84hcZHceFBsDHdBPQYtLREa",
+        "object_type": "variable_workflow"
+      },
+      {
+        "schema_id": "datatype.string",
+        "properties": {
+          "value": "",
+          "scope": "input",
+          "name": "eventstring",
+          "type": "datatype.string",
+          "is_required": false
+        },
+        "unique_name": "variable_workflow_01IMV0XXT2GTG5IRhnA0x5ON885X3tfYM4u",
+        "object_type": "variable_workflow"
+      },
+      {
+        "schema_id": "datatype.string",
+        "properties": {
+          "value": "",
+          "scope": "input",
+          "name": "hostname",
+          "type": "datatype.string",
+          "is_required": false
+        },
+        "unique_name": "variable_workflow_01IMUTUO6A4FZ7lDT5KAbOXCCWph34b6Nyz",
+        "object_type": "variable_workflow"
+      },
+      {
+        "schema_id": "datatype.integer",
+        "properties": {
+          "value": 0,
+          "scope": "input",
+          "name": "penalty",
+          "type": "datatype.integer",
+          "is_required": false
+        },
+        "unique_name": "variable_workflow_01IMUV6HB4CUZ7M8zhhbU73ZULx7xr6UywT",
+        "object_type": "variable_workflow"
+      }
+    ],
+    "properties": {
+      "atomic": {
+        "atomic_group": "Atomic",
+        "is_atomic": true
+      },
+      "delete_workflow_instance": false,
+      "display_name": "RTC Update Event Table",
+      "runtime_user": {
+        "override_target_runtime_user": false,
+        "specify_on_workflow_start": false,
+        "target_default": true
+      },
+      "target": {
+        "execute_on_target_group": false,
+        "execute_on_workflow_target": false,
+        "no_target": true,
+        "specify_on_workflow_start": false
+      }
+    },
+    "object_type": "definition_workflow",
+    "actions": [
+      {
+        "unique_name": "definition_activity_01IMQOE6FSMW72JbSyxH4O3abShOb847QA0",
+        "name": "Select from Table",
+        "title": "CHECK EVENT TABLE",
+        "type": "core.selectfromtable",
+        "base_type": "activity",
+        "properties": {
+          "action_timeout": 180,
+          "continue_on_failure": false,
+          "display_name": "CHECK EVENT TABLE",
+          "input_table": "$global.variable_01IQ7XFDHCS3F0h3yo63lsldOUJaj3Yk7Sg.global.variable_01IQ7XFDHCS3F0h3yo63lsldOUJaj3Yk7Sg$",
+          "number_of_rows": {
+            "all_rows": true,
+            "at_most": false
+          },
+          "persist_output": false,
+          "skip_execution": false,
+          "sorting": {
+            "no_sort": true,
+            "sort_by": false
+          },
+          "where_clause": "event_type = '$workflow.definition_workflow_01IMQOAXK374P1VYzvTmXpg0b36GPRkohQk.input.variable_workflow_01IMV4PNHUGDH4wEWdhEF833h1BHiTOQMFw$' AND hostname = '$workflow.definition_workflow_01IMQOAXK374P1VYzvTmXpg0b36GPRkohQk.input.variable_workflow_01IMUTUO6A4FZ7lDT5KAbOXCCWph34b6Nyz$' AND ip = '$workflow.definition_workflow_01IMQOAXK374P1VYzvTmXpg0b36GPRkohQk.input.variable_workflow_01IMUU25DQ3FL0SLC9tRgckBq8a169qWxwx$' AND user = '$workflow.definition_workflow_01IMQOAXK374P1VYzvTmXpg0b36GPRkohQk.input.variable_workflow_01IMUTNEA0LI42zZFafpdsicoFVt8xWg2px$' AND mac_address = '$workflow.definition_workflow_01IMQOAXK374P1VYzvTmXpg0b36GPRkohQk.input.variable_workflow_01IMUU9IBOMU84hcZHceFBsDHdBPQYtLREa$' AND value = '$workflow.definition_workflow_01IMQOAXK374P1VYzvTmXpg0b36GPRkohQk.input.variable_workflow_01IQARG2LRYV36j2i5psTQgmMu4vhHUSpZG$'"
+        },
+        "object_type": "definition_activity"
+      },
+      {
+        "unique_name": "definition_activity_01IMQSMGAH5TX5mHnkcqqT1Ai3ed6hbvu44",
+        "name": "Condition Block",
+        "title": "Event in Event Table?",
+        "type": "logic.if_else",
+        "base_type": "activity",
+        "properties": {
+          "continue_on_failure": false,
+          "display_name": "Event in Event Table?",
+          "skip_execution": false
+        },
+        "object_type": "definition_activity",
+        "blocks": [
+          {
+            "unique_name": "definition_activity_01IMQSMQM3VPK7bRa7wIad1RNvrLfpA42PT",
+            "name": "Condition Branch",
+            "title": "No - New Event",
+            "type": "logic.condition_block",
+            "base_type": "activity",
+            "properties": {
+              "condition": {
+                "left_operand": "$activity.definition_activity_01IMQOE6FSMW72JbSyxH4O3abShOb847QA0.output.row_count$",
+                "operator": "eq",
+                "right_operand": 0
+              },
+              "continue_on_failure": false,
+              "display_name": "No - New Event",
+              "skip_execution": false
+            },
+            "object_type": "definition_activity",
+            "actions": [
+              {
+                "unique_name": "definition_activity_01IMQOEVJZX2C4wTWLiAeSSAgCL7KZUt1u9",
+                "name": "Add Row to Table",
+                "title": "INSERT INTO EVENT TABLE",
+                "type": "core.addrowtotable",
+                "base_type": "activity",
+                "properties": {
+                  "action_timeout": 180,
+                  "continue_on_failure": false,
+                  "display_name": "INSERT INTO EVENT TABLE",
+                  "input_table": "$global.variable_01IQ7XFDHCS3F0h3yo63lsldOUJaj3Yk7Sg.global.variable_01IQ7XFDHCS3F0h3yo63lsldOUJaj3Yk7Sg$",
+                  "row": [
+                    {
+                      "key": "event_type",
+                      "type": "string",
+                      "value": "$workflow.definition_workflow_01IMQOAXK374P1VYzvTmXpg0b36GPRkohQk.input.variable_workflow_01IMV4PNHUGDH4wEWdhEF833h1BHiTOQMFw$"
+                    },
+                    {
+                      "key": "user",
+                      "type": "string",
+                      "value": "$workflow.definition_workflow_01IMQOAXK374P1VYzvTmXpg0b36GPRkohQk.input.variable_workflow_01IMUTNEA0LI42zZFafpdsicoFVt8xWg2px$"
+                    },
+                    {
+                      "key": "hostname",
+                      "type": "string",
+                      "value": "$workflow.definition_workflow_01IMQOAXK374P1VYzvTmXpg0b36GPRkohQk.input.variable_workflow_01IMUTUO6A4FZ7lDT5KAbOXCCWph34b6Nyz$"
+                    },
+                    {
+                      "key": "ip",
+                      "type": "string",
+                      "value": "$workflow.definition_workflow_01IMQOAXK374P1VYzvTmXpg0b36GPRkohQk.input.variable_workflow_01IMUU25DQ3FL0SLC9tRgckBq8a169qWxwx$"
+                    },
+                    {
+                      "key": "mac_address",
+                      "type": "string",
+                      "value": "$workflow.definition_workflow_01IMQOAXK374P1VYzvTmXpg0b36GPRkohQk.input.variable_workflow_01IMUU9IBOMU84hcZHceFBsDHdBPQYtLREa$"
+                    },
+                    {
+                      "key": "type",
+                      "type": "string",
+                      "value": "$workflow.definition_workflow_01IMQOAXK374P1VYzvTmXpg0b36GPRkohQk.input.variable_workflow_01IQARABPBL551kDqTVtqFm2rKi5bkD6KfI$"
+                    },
+                    {
+                      "key": "value",
+                      "type": "string",
+                      "value": "$workflow.definition_workflow_01IMQOAXK374P1VYzvTmXpg0b36GPRkohQk.input.variable_workflow_01IQARG2LRYV36j2i5psTQgmMu4vhHUSpZG$"
+                    },
+                    {
+                      "key": "penalty",
+                      "type": "integer",
+                      "value": "$workflow.definition_workflow_01IMQOAXK374P1VYzvTmXpg0b36GPRkohQk.input.variable_workflow_01IMUV6HB4CUZ7M8zhhbU73ZULx7xr6UywT$"
+                    },
+                    {
+                      "key": "event_string",
+                      "type": "string",
+                      "value": "$workflow.definition_workflow_01IMQOAXK374P1VYzvTmXpg0b36GPRkohQk.input.variable_workflow_01IMV0XXT2GTG5IRhnA0x5ON885X3tfYM4u$"
+                    }
+                  ],
+                  "skip_execution": false
+                },
+                "object_type": "definition_activity"
+              },
+              {
+                "unique_name": "definition_activity_01IMV290CXW6Y2QO5NXxcrtsGJZIC5ZWNOT",
+                "name": "Set Variables",
+                "title": "Set New Event to True",
+                "type": "core.set_multiple_variables",
+                "base_type": "activity",
+                "properties": {
+                  "continue_on_failure": false,
+                  "display_name": "Set New Event to True",
+                  "skip_execution": false,
+                  "variables_to_update": [
+                    {
+                      "variable_to_update": "$workflow.definition_workflow_01IMQOAXK374P1VYzvTmXpg0b36GPRkohQk.output.variable_workflow_01IMV1ZZKWLJH06n8hycxt8uCV5HtFoYXIO$",
+                      "variable_value_new": true
+                    }
+                  ]
+                },
+                "object_type": "definition_activity"
+              }
+            ]
+          },
+          {
+            "unique_name": "definition_activity_01IMQSMRM184O3SIJHDCsMsgc7oQ1eBRi20",
+            "name": "Condition Branch",
+            "title": "Condition Branch",
+            "type": "logic.condition_block",
+            "base_type": "activity",
+            "properties": {
+              "condition": {
+                "left_operand": "$activity.definition_activity_01IMQOE6FSMW72JbSyxH4O3abShOb847QA0.output.row_count$",
+                "operator": "ne",
+                "right_operand": 0
+              },
+              "continue_on_failure": false,
+              "display_name": "Condition Branch",
+              "skip_execution": false
+            },
+            "object_type": "definition_activity",
+            "actions": [
+              {
+                "unique_name": "definition_activity_01IMVKDCRPWDN3pRaIqQD0ks11mCMmbTTiX",
+                "name": "Set Variables",
+                "title": "Set New Event to False",
+                "type": "core.set_multiple_variables",
+                "base_type": "activity",
+                "properties": {
+                  "continue_on_failure": false,
+                  "display_name": "Set New Event to False",
+                  "skip_execution": false,
+                  "variables_to_update": [
+                    {
+                      "variable_to_update": "$workflow.definition_workflow_01IMQOAXK374P1VYzvTmXpg0b36GPRkohQk.output.variable_workflow_01IMV1ZZKWLJH06n8hycxt8uCV5HtFoYXIO$",
+                      "variable_value_new": false
+                    }
+                  ]
+                },
+                "object_type": "definition_activity"
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "categories": [
+      "category_01I4ZSPMNI5KO0KKuu0fyfmzltRmOM9OE8w"
+    ]
+  },
+  "categories": {
+    "category_01I4ZSPMNI5KO0KKuu0fyfmzltRmOM9OE8w": {
+      "unique_name": "category_01I4ZSPMNI5KO0KKuu0fyfmzltRmOM9OE8w",
+      "name": "RTC-atomics",
+      "title": "RTC-atomics",
+      "type": "basic.category",
+      "base_type": "category",
+      "category_type": "custom",
+      "object_type": "category"
+    }
+  },
+  "variables": {
+    "variable_01IQ7XFDHCS3F0h3yo63lsldOUJaj3Yk7Sg": {
+      "unique_name": "variable_01IQ7XFDHCS3F0h3yo63lsldOUJaj3Yk7Sg",
+      "schema_id": "tabletype_01IQ7W81O5CF85AlH0LViQZILOZkZmKS9mI",
+      "properties": {
+        "value": [
+          {
+            "column_data": {
+              "event_string": "init",
+              "event_type": "init",
+              "hostname": "init",
+              "ip": "init",
+              "mac_address": "init",
+              "penalty": 0,
+              "type": "init",
+              "user": "",
+              "value": ""
+            }
+          },
+          {
+            "column_data": {
+              "event_string": "",
+              "event_type": "AMP",
+              "hostname": "vmrat33.labrats.se",
+              "ip": "10.1.33.33",
+              "mac_address": "00:50:56:8B:95:4A",
+              "penalty": 25,
+              "type": "sha256",
+              "user": "garfield@labrats.se",
+              "value": "d5221f6847978682234cb8ebfa951cb56b1323658679a820b168bbc1f5261a3b"
+            }
+          },
+          {
+            "column_data": {
+              "event_string": "",
+              "event_type": "AMP",
+              "hostname": "vmrat33.labrats.se",
+              "ip": "10.1.33.33",
+              "mac_address": "00:50:56:8B:95:4A",
+              "penalty": 25,
+              "type": "sha256",
+              "user": "garfield@labrats.se",
+              "value": "fa51a3bc680df33080a300da45bf232b8d08accf734875d8750fb9aedadceaf6"
+            }
+          },
+          {
+            "column_data": {
+              "event_string": "",
+              "event_type": "UMB",
+              "hostname": "",
+              "ip": "10.1.33.33",
+              "mac_address": "00:50:56:8B:95:4A",
+              "penalty": 25,
+              "type": "domain",
+              "user": "garfield@labrats.se",
+              "value": "sjpexaylsfjnopulpgkbqtkzieizcdtslnofpkafsqweztufpa.com"
+            }
+          },
+          {
+            "column_data": {
+              "event_string": "",
+              "event_type": "UMB",
+              "hostname": "",
+              "ip": "10.1.33.33",
+              "mac_address": "00:50:56:8B:95:4A",
+              "penalty": 25,
+              "type": "domain",
+              "user": "garfield@labrats.se",
+              "value": "hffmzplu.com"
+            }
+          }
+        ],
+        "scope": "global",
+        "name": "RTC Events Table",
+        "type": "datatype.table",
+        "is_required": false
+      },
+      "object_type": "variable"
+    }
+  },
+  "table_types": {
+    "tabletype_01IQ7W81O5CF85AlH0LViQZILOZkZmKS9mI": {
+      "unique_name": "tabletype_01IQ7W81O5CF85AlH0LViQZILOZkZmKS9mI",
+      "data_type": "datatype.tabletype",
+      "display_name": "RTC Event Table Type",
+      "columns": [
+        {
+          "name": "event_type",
+          "title": "event_type",
+          "type": "string"
+        },
+        {
+          "name": "penalty",
+          "title": "penalty",
+          "type": "integer"
+        },
+        {
+          "name": "type",
+          "title": "type",
+          "type": "string"
+        },
+        {
+          "name": "value",
+          "title": "value",
+          "type": "string"
+        },
+        {
+          "name": "event_string",
+          "title": "event_string",
+          "type": "string"
+        },
+        {
+          "name": "hostname",
+          "title": "hostname",
+          "type": "string"
+        },
+        {
+          "name": "ip",
+          "title": "ip",
+          "type": "string"
+        },
+        {
+          "name": "mac_address",
+          "title": "mac_address",
+          "type": "string"
+        },
+        {
+          "name": "user",
+          "title": "user",
+          "type": "string"
+        }
+      ],
+      "base_type": "datatype",
+      "object_type": "tabletype"
+    }
+  }
+}
