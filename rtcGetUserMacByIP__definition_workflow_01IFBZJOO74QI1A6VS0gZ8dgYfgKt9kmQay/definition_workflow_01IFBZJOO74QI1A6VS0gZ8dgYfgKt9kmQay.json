@@ -1,0 +1,262 @@
+{
+  "workflow": {
+    "unique_name": "definition_workflow_01IFBZJOO74QI1A6VS0gZ8dgYfgKt9kmQay",
+    "name": "RTC Get User and MAC By IP",
+    "title": "RTC Get User and MAC By IP",
+    "type": "generic.workflow",
+    "base_type": "workflow",
+    "variables": [
+      {
+        "schema_id": "datatype.string",
+        "properties": {
+          "value": "",
+          "scope": "output",
+          "name": "username",
+          "type": "datatype.string",
+          "is_required": false
+        },
+        "unique_name": "variable_workflow_01IFTL9KZF06B3t4epQ4GUXLRzzysRhk9hG",
+        "object_type": "variable_workflow"
+      },
+      {
+        "schema_id": "datatype.string",
+        "properties": {
+          "value": "",
+          "scope": "output",
+          "name": "mac",
+          "type": "datatype.string",
+          "is_required": false
+        },
+        "unique_name": "variable_workflow_01IRVQUD4OLNL00DV4GbTOgLtcP1FMhJx6i",
+        "object_type": "variable_workflow"
+      },
+      {
+        "schema_id": "datatype.string",
+        "properties": {
+          "value": "",
+          "scope": "input",
+          "name": "ip",
+          "type": "datatype.string",
+          "is_required": false
+        },
+        "unique_name": "variable_workflow_01IFBZWLOK3X67mvFU26Jwfdea3vuSwXefs",
+        "object_type": "variable_workflow"
+      }
+    ],
+    "properties": {
+      "atomic": {
+        "is_atomic": false
+      },
+      "delete_workflow_instance": false,
+      "display_name": "RTC Get User and MAC By IP",
+      "runtime_user": {
+        "override_target_runtime_user": false,
+        "specify_on_workflow_start": false,
+        "target_default": true
+      },
+      "target": {
+        "no_target": true
+      }
+    },
+    "object_type": "definition_workflow",
+    "actions": [
+      {
+        "unique_name": "definition_activity_01IFC01SY9QX807tFm2PWPwEuX7qas56miD",
+        "name": "HTTP Request",
+        "title": "Get ISE  Info from IP",
+        "type": "web-service.http_request",
+        "base_type": "activity",
+        "properties": {
+          "action_timeout": 180,
+          "allow_auto_redirect": true,
+          "body": "{\"ip\":\"$workflow.definition_workflow_01IFBZJOO74QI1A6VS0gZ8dgYfgKt9kmQay.input.variable_workflow_01IFBZWLOK3X67mvFU26Jwfdea3vuSwXefs$\"}",
+          "content_type": "application/json",
+          "continue_on_error_status_code": false,
+          "continue_on_failure": false,
+          "custom_headers": [
+            {
+              "name": "RTCauthz",
+              "value": "$global.variable_01J9S3SKXQ32V54pNFciSSgKZIorwkrGPD5.global.variable_01J9S3SKXQ32V54pNFciSSgKZIorwkrGPD5$"
+            }
+          ],
+          "display_name": "Get ISE  Info from IP",
+          "method": "POST",
+          "relative_url": "/rtcAPIgetUserByIP.py",
+          "runtime_user": {
+            "override_target_runtime_user": false,
+            "target_default": true
+          },
+          "skip_execution": false,
+          "target": {
+            "override_workflow_target": true,
+            "target_id": "definition_target_01IGZC1E40QID51TJJOLbYyph2fAS6Jlji8"
+          }
+        },
+        "object_type": "definition_activity"
+      },
+      {
+        "unique_name": "definition_activity_01IFVE04TWNYD06GoCvzdhV3opZEjcgSgaO",
+        "name": "JSONPath Query",
+        "title": "Extract Username and MAC",
+        "type": "corejava.jsonpathquery",
+        "base_type": "activity",
+        "properties": {
+          "action_timeout": 180,
+          "continue_on_failure": true,
+          "display_name": "Extract Username and MAC",
+          "input_json": "$activity.definition_activity_01IFC01SY9QX807tFm2PWPwEuX7qas56miD.output.response_body$",
+          "jsonpath_queries": [
+            {
+              "jsonpath_query": "$.userName",
+              "jsonpath_query_name": "username",
+              "jsonpath_query_type": "string"
+            },
+            {
+              "jsonpath_query": "$.macAddress",
+              "jsonpath_query_name": "mac",
+              "jsonpath_query_type": "string"
+            }
+          ],
+          "skip_execution": false
+        },
+        "object_type": "definition_activity"
+      },
+      {
+        "unique_name": "definition_activity_01ISY6QSBONYV204Sp3KkLpIXYyN7sKqJXl",
+        "name": "Condition Block",
+        "title": "Could we extract username or mac?",
+        "type": "logic.if_else",
+        "base_type": "activity",
+        "properties": {
+          "continue_on_failure": false,
+          "display_name": "Could we extract username or mac?",
+          "skip_execution": false
+        },
+        "object_type": "definition_activity",
+        "blocks": [
+          {
+            "unique_name": "definition_activity_01ISY6R69JAFY7D5gSI9Qok4gbku5ReNzbT",
+            "name": "Condition Branch",
+            "title": "Yes",
+            "type": "logic.condition_block",
+            "base_type": "activity",
+            "properties": {
+              "condition": {
+                "left_operand": "$activity.definition_activity_01IFVE04TWNYD06GoCvzdhV3opZEjcgSgaO.output.succeeded$",
+                "operator": "eq",
+                "right_operand": true
+              },
+              "continue_on_failure": false,
+              "display_name": "Yes",
+              "skip_execution": false
+            },
+            "object_type": "definition_activity",
+            "actions": [
+              {
+                "unique_name": "definition_activity_01IFVHZRLXFNI5VaujLqRxUM9Oy97RRHu7f",
+                "name": "Set Variables",
+                "title": "Set username and mac",
+                "type": "core.set_multiple_variables",
+                "base_type": "activity",
+                "properties": {
+                  "continue_on_failure": false,
+                  "display_name": "Set username and mac",
+                  "skip_execution": false,
+                  "variables_to_update": [
+                    {
+                      "variable_to_update": "$workflow.definition_workflow_01IFBZJOO74QI1A6VS0gZ8dgYfgKt9kmQay.output.variable_workflow_01IFTL9KZF06B3t4epQ4GUXLRzzysRhk9hG$",
+                      "variable_value_new": "$activity.definition_activity_01IFVE04TWNYD06GoCvzdhV3opZEjcgSgaO.output.jsonpath_queries.username$"
+                    },
+                    {
+                      "variable_to_update": "$workflow.definition_workflow_01IFBZJOO74QI1A6VS0gZ8dgYfgKt9kmQay.output.variable_workflow_01IRVQUD4OLNL00DV4GbTOgLtcP1FMhJx6i$",
+                      "variable_value_new": "$activity.definition_activity_01IFVE04TWNYD06GoCvzdhV3opZEjcgSgaO.output.jsonpath_queries.mac$"
+                    }
+                  ]
+                },
+                "object_type": "definition_activity"
+              }
+            ]
+          },
+          {
+            "unique_name": "definition_activity_01ISY6R7VI0GJ294zk8sHwGzWTqkorHSjmF",
+            "name": "Condition Branch",
+            "title": "No",
+            "type": "logic.condition_block",
+            "base_type": "activity",
+            "properties": {
+              "condition": {
+                "left_operand": "$activity.definition_activity_01IFVE04TWNYD06GoCvzdhV3opZEjcgSgaO.output.succeeded$",
+                "operator": "eq",
+                "right_operand": false
+              },
+              "continue_on_failure": false,
+              "display_name": "No",
+              "skip_execution": false
+            },
+            "object_type": "definition_activity"
+          }
+        ]
+      },
+      {
+        "unique_name": "definition_activity_01ISY8YTGZPR65QjC1xDyK6qfniC6VObT3F",
+        "name": "Completed",
+        "title": "Completed",
+        "type": "logic.completed",
+        "base_type": "activity",
+        "properties": {
+          "completion_type": "succeeded",
+          "continue_on_failure": false,
+          "display_name": "Completed",
+          "skip_execution": false
+        },
+        "object_type": "definition_activity"
+      }
+    ],
+    "categories": [
+      "category_01IFVKND3SVRK1axEt6HjLGZIY3P9yqFztU"
+    ]
+  },
+  "categories": {
+    "category_01IFVKND3SVRK1axEt6HjLGZIY3P9yqFztU": {
+      "unique_name": "category_01IFVKND3SVRK1axEt6HjLGZIY3P9yqFztU",
+      "name": "RTC",
+      "title": "RTC",
+      "type": "basic.category",
+      "base_type": "category",
+      "category_type": "custom",
+      "object_type": "category"
+    }
+  },
+  "targets": {
+    "definition_target_01IGZC1E40QID51TJJOLbYyph2fAS6Jlji8": {
+      "unique_name": "definition_target_01IGZC1E40QID51TJJOLbYyph2fAS6Jlji8",
+      "name": "rtcISE",
+      "title": "rtcISE",
+      "type": "web-service.endpoint",
+      "base_type": "target",
+      "object_type": "definition_target",
+      "properties": {
+        "disable_certificate_validation": true,
+        "display_name": "rtcISE",
+        "host": "rtcaws.labrats.se",
+        "ignore_proxy": false,
+        "no_runtime_user": true,
+        "path": "/cgi-bin",
+        "protocol": "https"
+      }
+    }
+  },
+  "variables": {
+    "variable_01J9S3SKXQ32V54pNFciSSgKZIorwkrGPD5": {
+      "unique_name": "variable_01J9S3SKXQ32V54pNFciSSgKZIorwkrGPD5",
+      "properties": {
+        "value": "*****",
+        "scope": "global",
+        "name": "RTC ISE Authz Secure String",
+        "type": "datatype.secure_string",
+        "is_required": false
+      },
+      "object_type": "variable"
+    }
+  }
+}
